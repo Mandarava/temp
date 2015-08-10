@@ -1,0 +1,17 @@
+Dim flag As Boolean
+
+
+Private Sub CommandButton1_Click()
+If IsNumeric(TextBox1.Text) = True Then
+    flag = True
+Else
+    flag = False
+End If
+
+Label1.Caption = flag
+
+End Sub
+
+Private Sub TextBox1_Change()
+
+End Sub

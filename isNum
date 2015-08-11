@@ -15,3 +15,35 @@ End Sub
 Private Sub TextBox1_Change()
 
 End Sub
+
+
+
+'change to utf-8
+Sub change()
+Dim Mazmun As String
+Dim strFileName As String
+strFileName = "G:\aa.txt"
+Dim a
+Set a = CreateObject("ADODB.Stream")
+a.Charset = "utf-8"
+a.Open
+a.LoadFromFile strFileName
+Mazmun = a.ReadText
+a.Close
+Dim stm
+Set stm = CreateObject("adodb.stream")
+stm.Type = 2
+stm.Mode = 3
+stm.Charset = "utf-8"
+stm.Open
+stm.WriteText Mazmun
+stm.SaveToFile strFileName, 2
+stm.flush
+stm.Close
+Set stm = Nothing
+
+End Sub
+
+
+'the second one
+FSO1.SetCoding = "UTF-8"  

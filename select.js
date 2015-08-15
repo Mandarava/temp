@@ -46,3 +46,31 @@ function isNameInput(nameInput) {	//当[名称]输入框中有输入的时候
 function noInput() {
 		document.getElementById("errorInfo").innerText = "请输入！";
 }
+
+var deptNameRadioState = 1;
+ function deptNameRadioClick(){	
+	if (deptNameRadioState == 1){
+		document.getElementById('deptName').checked = false;
+		deptNameRadioState = 0;
+	}else{
+		document.getElementById('deptName').checked = true;
+		deptNameRadioState = 1;
+	}        
+}
+
+var workerNameRadioState = 0;
+ function workerNameRadioClick(){	
+	if (workerNameRadioState == 1){
+		document.getElementById('workerName').checked = false;
+		workerNameRadioState = 0;
+	}else{
+		document.getElementById('workerName').checked = true;
+		workerNameRadioState = 1;
+	}        
+}
+
+//html 1：3：3 to be finished
+//onclick="workerNameRadioClick();"
+//onclick="deptNameRadioClick();"
+//数字小数点
+//名称不能清空

@@ -9,6 +9,14 @@
 	isWorkerIdInput(workerId,nameInput);
 }
 
+
+function doclear() {
+	var myform = document.getElementById("myform");
+	myform.action = "Clear";
+	myform.submit();
+}
+
+
 function isWorkerIdInput(workerId,nameInput) {
 	if(workerId.length != 0) {		//当[工号]输入框中的有输入的时候
 		var trimedWorkerId = workerId.trim(); //trim 处理
@@ -18,9 +26,9 @@ function isWorkerIdInput(workerId,nameInput) {
 			document.getElementById("errorInfo").innerText = "位数不足8位";
 		}else if(trimedWorkerId.length == 8) {
 			document.getElementById("errorInfo").innerText = "System is running";
-			alert("显示数据");		
-			//myform.action = "Select";
-			//myform.submit();
+			//alert("显示数据");		
+			myform.action = "Select";
+			myform.submit();
 		}
 	}else {			//当[工号]输入框中的没输入的时候
 		isNameInput(nameInput);	
@@ -35,8 +43,8 @@ function isNameInput(nameInput) {	//当[名称]输入框中有输入的时候
 		}else {
 			document.getElementById("errorInfo").innerText = "System is running";
 			alert("显示数据");
-			//myform.action = "Select";
-			//myform.submit();
+			myform.action = "Select";
+			myform.submit();
 		}
 	}else {		//当名称输入框中也没有输入的时候
 		noInput();
@@ -46,6 +54,7 @@ function isNameInput(nameInput) {	//当[名称]输入框中有输入的时候
 function noInput() {
 		document.getElementById("errorInfo").innerText = "请输入！";
 }
+
 
 var deptNameRadioState = 1;
  function deptNameRadioClick(){	

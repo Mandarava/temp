@@ -2,7 +2,7 @@
 	var myform = document.getElementById("myform");
 	var workerId = document.getElementById("workerID").value;
 	var nameInput = document.getElementById("nameInput").value;
-	if(nameInput.length != 0 ) {	//如果名称有输入优先判断
+	if(nameInput.trim.length != 0 ) {	//如果名称有输入优先判断
 		isNameInput(nameInput);
 		return;
 	}

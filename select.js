@@ -42,7 +42,7 @@ function isNameInput(nameInput) {	//当[名称]输入框中有输入的时候
 			noInput();
 		}else {
 			document.getElementById("errorInfo").innerText = "System is running";
-			alert("显示数据");
+			//alert("显示数据");
 			myform.action = "Select";
 			myform.submit();
 		}

@@ -1,4 +1,4 @@
-Attribute VB_Name = "ģ��1"
+﻿Attribute VB_Name = "模块1"
 Sub triangle()
     Dim num(11, 11) As Integer
     Dim sh As Worksheet

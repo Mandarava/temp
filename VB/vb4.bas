@@ -1,4 +1,4 @@
-Attribute VB_Name = "ģ��1"
+﻿Attribute VB_Name = "模块1"
 Dim tableName As String 'get table name
 Dim fileName As String  'set fileName
 Dim dropSql As String   'drop table sql sentence

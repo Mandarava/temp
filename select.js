@@ -78,8 +78,9 @@ var workerNameRadioState = 0;
 	}        
 }
 
-//html 1：3：3 to be finished
-//onclick="workerNameRadioClick();"
-//onclick="deptNameRadioClick();"
-//数字小数点
-//名称不能清空
+
+//名称不能清空 
+//private Person person			
+//get/set
+//name=person.name
+// name=${person.name}

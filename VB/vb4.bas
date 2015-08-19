@@ -1,4 +1,4 @@
-﻿Attribute VB_Name = "模块1"
+Attribute VB_Name = "ﾄ｣ｿ・"
 Dim tableName As String 'get table name
 Dim fileName As String  'set fileName
 Dim dropSql As String   'drop table sql sentence
@@ -7,12 +7,14 @@ Dim maxColumn As Integer
 Dim createTableStr As String ' to save create table sentences
 Dim commentsStr As String 'to save comments
 Dim primaryKey As String ' to save primary key
-Const maxSheet As Integer = 3
 Const strEncode As String = "UTF-8"
 
 Sub createSql()
 
-For m = 2 To maxSheet
+For m = 1 To ThisWorkbook.Sheets.Count
+    'judge whether it is the database table
+    If (ThisWorkbook.Sheets(m).Cells(1, 1).Text = "テーブル定義") Then
+
     'create file
     createTableStr = ""
     commentsStr = ""
@@ -91,18 +93,18 @@ For m = 2 To maxSheet
         stm.WriteText (vbCrLf & ")" & vbCrLf & ";" & vbCrLf)
         stm.WriteText ("COMMENT ON TABLE " & tableName & " IS '" & ThisWorkbook.Sheets(m).Range("H" & 5).Text & "';" & vbCrLf) 'write table comments
         stm.WriteText (commentsStr)
-        
-    ' alter table
+
+        ' alter table
         stm.WriteText (vbCrLf & ";" & vbCrLf & "ALTER TABLE " & tableName & vbCrLf & " ADD PRIMARY KEY (" & vbCrLf & primaryKey & vbCrLf & ")" & vbCrLf & ";")
-         
+
         stm.WriteText (vbCrLf & vbCrLf & ";" & vbCrLf)
-    tf.Close
+        tf.Close
 
-    stm.SaveToFile strFileName, 2
-    stm.flush
-    stm.Close
-    Set stm = Nothing
-
+        stm.SaveToFile strFileName, 2
+        stm.flush
+        stm.Close
+        Set stm = Nothing
+    End If
 Next m
 
 End Sub

@@ -1,109 +1,145 @@
-ÔªøAttribute VB_Name = "Ê®°Âùó1"
-Dim tableName As String 'get table name
-Dim fileName As String  'set fileName
-Dim dropSql As String   'drop table sql sentence
-Dim maxLine As Integer
-Dim maxColumn As Integer
-Dim createTableStr As String ' to save create table sentences
-Dim commentsStr As String 'to save comments
-Dim primaryKey As String ' to save primary key
-Const maxSheet As Integer = 3
+Attribute VB_Name = "Module1"
+'ï∂åèóﬁå^
+Const fileType As String = ".sql"
+'ï∂åèdirectory
+Const fileDirectory As String = "D:\"
+'ï∂åèï“·˘
 Const strEncode As String = "UTF-8"
+'A1óÒ
+Const tableDefineColumn As String = "A1"
+' A1óÒìIì‡óe
+Const strA1Content As String = "ÉeÅ[ÉuÉãíËã`"
+'ï\ñºóÒ        C5
+Const tableNameColumn As String = "C5"
+'ï\íêÁ◊óÒ     H5
+Const tableNameComment As String = "H5"
+'çÄñ⁄ñº(ì˙ñ{åÍÅj     B
+Const attributeJapColumn As String = "B"
+'çÄñ⁄ñºÅiâpéöÅj      C
+Const attributeEngColumn As String = "C"
+'éÂÉLÅ[ D
+Const primaryKeyColumn As String = "D"
+'not NULL        G
+Const notNullColumn As String = "G"
+'DBå^ H
+Const dataTypeColumn As String = "H"
+'åÖêîëSëÃ I
+Const dataLength As String = "I"
+'åÖêîè¨êîïî J
+Const dataPointColumn As String = "J"
+'ãNénçs 8
+Const dataStartRow As Integer = 8
 
 Sub createSql()
-
-For m = 2 To maxSheet
-    'create file
-    createTableStr = ""
-    commentsStr = ""
-    primaryKey = ""
-    maxLine = ThisWorkbook.Sheets(m).UsedRange.Rows.Count
-    maxColumn = ThisWorkbook.Sheets(m).UsedRange.Columns.Count
-    tableName = ThisWorkbook.Sheets(m).Range("C5").Text
-    FilePath = "d:\" & tableName & ".sql"
-    Dim fso, tf
-    Set fso = CreateObject("Scripting.FileSystemObject")
-    Set tf = fso.CreateTextFile("d:\" & tableName & ".sql", True)
+    'ôàèúï\åÍãÂ
+    Dim dropSql As String
+    ' ë∂ï˙åöï\åÍãÂ
+    Dim createTableStr As String
+    'ë∂ï˙comments
+    Dim commentsStr As String
+    ' ë∂ï˙primary key
+    Dim primaryKey As String
+    'ï\ç≈ëÂçs
+    Dim maxLine As Integer
+    'ï\ñº
+    Dim tableName As String
+    'ï∂åèñº
+    Dim fileName As String
     
-    ' change to utf-8
-    Dim Mazmun As String
-    Dim strFileName As String
-    strFileName = "D:\" & tableName & ".sql"
+    For m = 1 To ThisWorkbook.Sheets.Count
+        'judge whether it is the database table
+        If (ThisWorkbook.Sheets(m).Range(tableDefineColumn).Text = strA1Content) Then
 
-    Dim stm
-    Set stm = CreateObject("adodb.stream")
-    stm.Type = 2
-    stm.Mode = 3
-    stm.Charset = "utf-8"
-    stm.Open
-
-    'drop table
-    dropSql = "DROP TABLE " & tableName
-    stm.WriteText (dropSql & vbCrLf & ";" & vbCrLf & vbCrLf)
+            'create file
+            createTableStr = ""
+            commentsStr = ""
+            primaryKey = ""
+            maxLine = ThisWorkbook.Sheets(m).UsedRange.Rows.Count
+            tableName = ThisWorkbook.Sheets(m).Range(tableNameColumn).Text
+            FilePath = fileDirectory & tableName & fileType
+            Dim fso, tf
+            Set fso = CreateObject("Scripting.FileSystemObject")
+            Set tf = fso.CreateTextFile(fileDirectory & tableName & fileType, True)
     
-    'create table
-    stm.WriteText ("CREATE TABLE " & tableName & vbCrLf & "(")
-    
-    For i = 8 To maxLine
-        ' judge if exists
-        If ThisWorkbook.Sheets(m).Range("C" & i).Text = "" Then
-            Exit For
-        End If
-        ' save createTable sentences
-            createTableStr = createTableStr & vbCrLf
-            createTableStr = createTableStr & ThisWorkbook.Sheets(m).Range("C" & i).Text & " " & ThisWorkbook.Sheets(m).Range("H" & i).Text
-        
-        If ThisWorkbook.Sheets(m).Range("I" & i).Text = "" Then
-        Else
-            createTableStr = createTableStr & "(" & Trim(ThisWorkbook.Sheets(m).Range("I" & i).Text)
-        End If
-        
-        If ThisWorkbook.Sheets(m).Range("J" & i).Text = "" And ThisWorkbook.Sheets(m).Range("I" & i).Text = "" Then
-           
-        ElseIf ThisWorkbook.Sheets(m).Range("J" & i).Text = "" Or ThisWorkbook.Sheets(m).Range("H" & i).Text = "varchar2" Then
-            createTableStr = createTableStr & ")"
-        Else
-            createTableStr = createTableStr & "," & Trim(ThisWorkbook.Sheets(m).Range("J" & i).Text) & ")"
-        End If
-        
-        If ThisWorkbook.Sheets(m).Range("G" & i).Text = "" Then 'judge column G whether is null
-        Else
-            createTableStr = createTableStr & " NOT NULL"
-            If (ThisWorkbook.Sheets(m).Range("G" & (i + 1)).Text <> "") Then
-                createTableStr = createTableStr & ","
-            Else
-            End If
-        End If
-        'save comment
-        commentsStr = commentsStr & " COMMENT ON COLUMN " & tableName & "." & ThisWorkbook.Sheets(m).Range("C" & i).Text & " IS '"
-        commentsStr = commentsStr & ThisWorkbook.Sheets(m).Range("B" & i).Text & "';" & vbCrLf
-        
-        'save primary key
-        If (ThisWorkbook.Sheets(m).Range("D" & i).Text <> "" And ThisWorkbook.Sheets(m).Range("D" & i).Text <> "1") Then
-            primaryKey = primaryKey & "," & ThisWorkbook.Sheets(m).Range("C" & i).Text
-        End If
-        
-        If (ThisWorkbook.Sheets(m).Range("D" & i).Text = "1") Then
-                primaryKey = primaryKey & ThisWorkbook.Sheets(m).Range("C" & i).Text
-        End If
-    Next i
-        stm.WriteText (createTableStr)
-        stm.WriteText (vbCrLf & ")" & vbCrLf & ";" & vbCrLf)
-        stm.WriteText ("COMMENT ON TABLE " & tableName & " IS '" & ThisWorkbook.Sheets(m).Range("H" & 5).Text & "';" & vbCrLf) 'write table comments
-        stm.WriteText (commentsStr)
-        
-    ' alter table
-        stm.WriteText (vbCrLf & ";" & vbCrLf & "ALTER TABLE " & tableName & vbCrLf & " ADD PRIMARY KEY (" & vbCrLf & primaryKey & vbCrLf & ")" & vbCrLf & ";")
-         
-        stm.WriteText (vbCrLf & vbCrLf & ";" & vbCrLf)
-    tf.Close
+            ' change to utf-8
+            Dim strFileName As String
+            strFileName = fileDirectory & tableName & fileType
 
-    stm.SaveToFile strFileName, 2
-    stm.flush
-    stm.Close
-    Set stm = Nothing
+            Dim stm
+            Set stm = CreateObject("adodb.stream")
+            stm.Type = 2
+            stm.Mode = 3
+            stm.Charset = strEncode
+            stm.Open
 
-Next m
+            'drop table
+            dropSql = "DROP TABLE " & tableName
+            stm.WriteText (dropSql & vbCrLf & ";" & vbCrLf & vbCrLf)
+
+            'create table
+            stm.WriteText ("CREATE TABLE " & tableName & vbCrLf & "(")
+
+            For I = dataStartRow To maxLine
+                ' judge if exists
+                If ThisWorkbook.Sheets(m).Range(attributeEngColumn & I).Text = "" Then
+                    Exit For
+                End If
+                ' save createTable sentences
+                createTableStr = createTableStr & vbCrLf
+                createTableStr = createTableStr & ThisWorkbook.Sheets(m).Range(attributeEngColumn & I).Text & " " & ThisWorkbook.Sheets(m).Range(dataTypeColumn & I).Text
+
+                If ThisWorkbook.Sheets(m).Range(dataLength & I).Text = "" Then
+                Else
+                    createTableStr = createTableStr & "(" & Trim(ThisWorkbook.Sheets(m).Range(dataLength & I).Text)
+                End If
+
+                If ThisWorkbook.Sheets(m).Range(dataPointColumn & I).Text = "" And ThisWorkbook.Sheets(m).Range(dataLength & I).Text = "" Then
+
+                ElseIf ThisWorkbook.Sheets(m).Range(dataPointColumn & I).Text = "" Or ThisWorkbook.Sheets(m).Range(dataTypeColumn & I).Text = "varchar2" Then
+                    createTableStr = createTableStr & ")"
+                Else
+                    createTableStr = createTableStr & "," & Trim(ThisWorkbook.Sheets(m).Range(dataPointColumn & I).Text) & ")"
+                End If
+                'judge column G whether is null
+                If ThisWorkbook.Sheets(m).Range(notNullColumn & I).Text = "" Then
+                Else
+                    createTableStr = createTableStr & " NOT NULL"
+                    If (ThisWorkbook.Sheets(m).Range(notNullColumn & (I + 1)).Text <> "") Then
+                        createTableStr = createTableStr & ","
+                    Else
+                    End If
+                End If
+                'save comment
+                commentsStr = commentsStr & " COMMENT ON COLUMN " & tableName & "." & ThisWorkbook.Sheets(m).Range(attributeEngColumn & I).Text & " IS '"
+                commentsStr = commentsStr & ThisWorkbook.Sheets(m).Range(attributeJapColumn & I).Text & "';" & vbCrLf
+
+                'save primary key
+                If (ThisWorkbook.Sheets(m).Range(primaryKeyColumn & I).Text <> "" And ThisWorkbook.Sheets(m).Range(primaryKeyColumn & I).Text <> "1") Then
+                    primaryKey = primaryKey & "," & ThisWorkbook.Sheets(m).Range(attributeEngColumn & I).Text
+                End If
+
+                If (ThisWorkbook.Sheets(m).Range(primaryKeyColumn & I).Text = "1") Then
+                    primaryKey = primaryKey & ThisWorkbook.Sheets(m).Range(attributeEngColumn & I).Text
+                End If
+            Next I
+            stm.WriteText (createTableStr)
+            stm.WriteText (vbCrLf & ")" & vbCrLf & ";" & vbCrLf)
+            'write table comments
+            stm.WriteText ("COMMENT ON TABLE " & tableName & " IS '" & ThisWorkbook.Sheets(m).Range(tableNameComment).Text & "';" & vbCrLf)
+            stm.WriteText (commentsStr)
+
+            ' alter table
+            stm.WriteText (vbCrLf & ";" & vbCrLf & "ALTER TABLE " & tableName & vbCrLf & " ADD PRIMARY KEY (" & vbCrLf & primaryKey & vbCrLf & ")" & vbCrLf & ";")
+
+            stm.WriteText (vbCrLf & vbCrLf & ";" & vbCrLf)
+            tf.Close
+
+            stm.SaveToFile strFileName, 2
+            stm.flush
+            stm.Close
+            Set stm = Nothing
+        End If
+    Next m
 
 End Sub
 

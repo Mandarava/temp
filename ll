@@ -20,5 +20,5 @@
 4、write js comments
 5、style样式放进css？
 6、动态新闻能点击？
-	new1.jsp -> <span style="cursor: pointer;" class="newstitle" onclick="tonewsDetailed('s0002')">${m1.title}</span>
+	new1.jsp -> <span style="cursor: pointer;" class="newstitle" onclick="tonewsDetailed('${m1.id}')">${m1.title}</span>
 			放到css中

@@ -1,5 +1,3 @@
-excel行列转置     选中复制  然后点击空白的单元格  选择粘贴  转置 OK
-
  " *$" 正则去除段尾空格
  "^ *"  去除段首空格
  
@@ -8,15 +6,6 @@ excel行列转置     选中复制  然后点击空白的单元格  选择粘贴
 #前端面试题精选系列汇总
 http://www.cnblogs.com/qiling-studio/p/5082417.html   
 
-#blog
-https://github.com/creatorYC/yechblog
-
-ztree
-http://www.zuidaima.com/share/1635101805300736.htm
-
-http://download.csdn.net/detail/naploen8/8381755
-
-
 CentOS安装配置SVN
 http://www.cnblogs.com/zhoulf/archive/2013/02/02/2889949.html
 
@@ -24,15 +13,8 @@ http://www.cnblogs.com/zhoulf/archive/2013/02/02/2889949.html
 http://www.dadclab.com/archives/4657.jiecao/comment-page-1
 
 http://www.cnblogs.com/hanxianlong/p/4666528.html
-svnsync E000022 Couldn't get lock on destination repos after 10 attempts
-
-http://download.csdn.net/download/wuyue521_2008/4180772
-
-http://download.csdn.net/detail/pyn0813/4432709
 
 calendar
-http://www.malot.fr/bootstrap-datetimepicker/
-http://www.cnblogs.com/xcsn/category/520574.html
-http://bootstrap-datepicker.readthedocs.org/en/latest/markup.html
-http://www.bootcss.com/p/bootstrap-datetimepicker/
 http://eonasdan.github.io/bootstrap-datetimepicker/
+
+http://jxls.sourceforge.net/

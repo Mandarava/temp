@@ -19,3 +19,83 @@ http://jxls.sourceforge.net/
 
 TODO
 http://www.material-ui.com/#/components/dropdown-menu
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>welcome</title>
+<script src="./test.js"></script>
+</head>
+
+<a href="index.html" id="a1" onclick="setCookie()">66</a>
+<br />
+<a href="index.html" id="a2" onclick="setCookie()">77</a>
+<br />
+<a href="index.html" id="a3" onclick="setCookie()">88</a>
+<br />
+
+
+<table>
+	<tbody>
+		<tr>
+			<td align="center" colspan="2"><input id="demo_button2" type="button" value="getCookie" onclick="getCookie()" /></td>
+			<td align="center" colspan="2"><input id="demo_button3" type="button" value="removeCookie"
+				onclick="removeCookie()" /></td>
+		</tr>
+	</tbody>
+</table>
+
+</html>
+
+
+window.onload = function() {
+	var text = "110226fsdf554fs654d6";
+	alert(!text.match(/^110/));
+	var cookieObj = getCookie();
+	var pro = new Array("a1", "a2", "a3");
+	for (var i = 0; i < pro.length; i++) {
+		// var pattern = new RegExp("^" + "a", "");
+		var pattern = new RegExp(/^a/);
+		for (var j = 0; j < cookieObj.length; j++) {
+			var text = cookieObj[j].toString();
+			if (text.match(pattern)) {
+				alert(11);
+				// document.getElementById(cookieObj[i]).style.color = "purple";
+			}
+		}
+
+	}
+}
+
+function getCookieObj() {
+	var cookieObj = {}, cookieSplit = [], cookieArr = document.cookie.split(";");
+	for (var i = 0, len = cookieArr.length; i < len; i++)
+		if (cookieArr[i]) {
+			cookieArr[i] = cookieArr[i].trim();
+			cookieSplit = cookieArr[i].split("=");
+			cookieObj[cookieSplit[0].trim()] = cookieSplit[1].trim();
+		}
+	// return cookieObj;
+	return cookieArr;
+}
+// セットクッキー
+function setCookie() {
+	var elemId = event.srcElement.id.trim();
+	document.cookie = elemId + "=" + escape(elemId) + ";" + "expire=" + ((new Date()).getTime() + 600 * 1000);
+}
+
+// クッキーを取得します
+function getCookie() {
+	var cookieObj = getCookieObj();
+	return cookieObj;
+}
+
+// Cookieを削除します
+function removeCookie() {
+
+}
+
+// cookie过期时间？？
+

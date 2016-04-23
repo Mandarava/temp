@@ -63,10 +63,4 @@ function getCookie() {
 	return cookieObj;
 }
 
-// Cookieを削除します
-function removeCookie() {
-
-}
-
-// cookie过期时间？？
 

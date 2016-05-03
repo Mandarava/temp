@@ -20,6 +20,23 @@ http://jxls.sourceforge.net/
 TODO
 http://www.material-ui.com/#/components/dropdown-menu
 
+<param name="callbackParameter">callback</param>
+$.ajax({
+	url : 'http://localhost:8080/bugqa/MAI0061Actionjsonp',
+	type : 'post',
+	data : {
+		'username' : 'test'
+	},
+	dataType : 'jsonp',
+	jsonp : 'callback',
+	success : function(data){
+		console.log(data);
+	},
+	error : function(){
+		alert("something wrong");
+	}
+});
+
 
 window.onload = function() {
 	var text = "110226fsdf554fs654d6";

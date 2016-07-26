@@ -74,4 +74,4 @@ function getCookie() {
 	return cookieObj;
 }
 
-[http://stackoverflow.com/questions/5112228/pagination-with-hibernatetemplates-findbynamedparam-function](http://stackoverflow.com/questions/5112228/pagination-with-hibernatetemplates-findbynamedparam-function)
+http://stackoverflow.com/questions/5112228/pagination-with-hibernatetemplates-findbynamedparam-function

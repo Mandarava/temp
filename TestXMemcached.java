@@ -21,7 +21,7 @@ public class TestXMemcached {
     public void init() {
         app =
                 new ClassPathXmlApplicationContext(
-                        "com/winning/property/springContext.xml");
+                        "com/springContext.xml");
         memcachedClient = (MemcachedClient) app.getBean("memcachedClient");
 
     }
